@@ -17,3 +17,15 @@ def mask_account_card(input_str: str) -> str:
 
     # Возвращаем результат
     return f"{' '.join(parts[:-1])} {masked_number}"
+
+
+def get_date(input_str: str) -> str:
+    """функция принимает на вход строку с датой в формате
+"2024-03-11T02:26:18.671407" и возвращает строку с датой в формате
+"ДД.ММ.ГГГГ" ("11.03.2024")"""
+
+    part_3: str = input_str[:4]
+    part_2: str = input_str[5:7]
+    part_1: str = input_str[8:10]
+
+    return f"{part_1}.{part_2}.{part_3}"
