@@ -1,4 +1,3 @@
-from src.masks import get_mask_card_number, get_mask_account
+from src.widget import mask_account_card
 
-print(get_mask_card_number(1234567890123456))
-print(get_mask_account(73654108430135874305))
+print(mask_account_card('Maestro 1596837868705199'))
