@@ -1,6 +1,7 @@
 from datetime import datetime
 
-def filter_by_state(data: list, state: str = 'EXECUTED') -> list:
+
+def filter_by_state(data: list, state: str = "EXECUTED") -> list:
     """
     Фильтрует список словарей по значению ключа 'state'.
 
@@ -12,10 +13,10 @@ def filter_by_state(data: list, state: str = 'EXECUTED') -> list:
     list: отфильтрованный список словарей
     """
     # Используем list comprehension для фильтрации
-    return [item for item in data if item.get('state') == state]
+    return [item for item in data if item.get("state") == state]
 
 
-def sort_by_date(data, descending=True):
+def sort_by_date(data: list, descending: bool = True) -> list:
     """
     Сортирует список словарей по дате в порядке убывания или возрастания.
 
@@ -28,8 +29,6 @@ def sort_by_date(data, descending=True):
     """
     # Сортируем список с использованием лямбда-функции и заданного порядка
     sorted_data = sorted(
-        data,
-        key=lambda item: datetime.strptime(item['date'], '%Y-%m-%dT%H:%M:%S.%f'),
-        reverse=descending
+        data, key=lambda item: datetime.strptime(item["date"], "%Y-%m-%dT%H:%M:%S.%f"), reverse=descending
     )
     return sorted_data
