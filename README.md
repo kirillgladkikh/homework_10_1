@@ -35,6 +35,11 @@ git clone https://github.com/kirillgladkikh/homework_10_1.git
 
 2. Зависимости указаны в файле [pyproject.toml](pyproject.toml).
 
+3. Для установки всех зависимостей из pyproject.toml используйте:
+```
+poetry install
+```
+
 ## Использование:
 
 1. Перейдите в файл [main.py](main.py).
