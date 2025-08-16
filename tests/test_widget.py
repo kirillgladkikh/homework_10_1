@@ -1,5 +1,6 @@
-from src.widget import mask_account_card, get_date
 import pytest
+
+from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize(
@@ -15,9 +16,9 @@ import pytest
         ("Счет 73654108430135874305", "Счет **4305"),
     ],
 )
-def test_mask_account_card(value, expected):
+def test_mask_account_card(value: str, expected: str) -> None:
     assert mask_account_card(value) == expected
 
 
-def test_get_date(get_date_input):
+def test_get_date(get_date_input: str) -> None:
     assert get_date(get_date_input) == "11.03.2024"

@@ -2,22 +2,22 @@ import pytest
 
 
 @pytest.fixture
-def card_number_masked():
+def card_number_masked() -> str:
     return "1234 56** **** 3456"
 
 
 @pytest.fixture
-def account_number_masked():
+def account_number_masked() -> str:
     return "**4305"
 
 
 @pytest.fixture
-def get_date_input():
+def get_date_input() -> str:
     return "2024-03-11T02:26:18.671407"
 
 
 @pytest.fixture
-def input_data():
+def input_data() -> list:
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
