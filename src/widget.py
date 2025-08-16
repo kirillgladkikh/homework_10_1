@@ -30,4 +30,3 @@ def get_date(input_str: str) -> str:
     part_1: str = input_str[8:10]
 
     return f"{part_1}.{part_2}.{part_3}"
-
