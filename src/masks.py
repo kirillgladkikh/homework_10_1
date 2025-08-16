@@ -20,7 +20,7 @@ def get_mask_card_number(card_number: int) -> str:
         # Формируем итоговую маску с пробелами
         return f"{first_part[:4]} {first_part[4:]}{masked_part}{last_part}"
     else:
-        return 'номер карты не равен 16 символам'
+        return "номер карты не равен 16 символам"
 
 
 def get_mask_account(account_number: int) -> str:
@@ -34,4 +34,4 @@ def get_mask_account(account_number: int) -> str:
         # Формируем итоговую маску
         return f"**{account_str[-4:]}"
     else:
-        return 'номер счета не равен 20 символам'
+        return "номер счета не равен 20 символам"
