@@ -1,5 +1,6 @@
 from typing import Generator
 
+
 def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
     """Генератор последовательности номеров карт"""
 
@@ -14,5 +15,7 @@ def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
     # Генерируем номера карт в заданном диапазоне
     for number in range(start, stop + 1):
         formatted_number = f"{number:016d}"
-        card_number = f"{formatted_number[0:4]} {formatted_number[4:8]} {formatted_number[8:12]} {formatted_number[12:16]}"
+        card_number = (
+            f"{formatted_number[0:4]} {formatted_number[4:8]} {formatted_number[8:12]} {formatted_number[12:16]}"
+        )
         yield card_number
