@@ -1,4 +1,8 @@
-def card_number_generator(start: int, end: int) -> str:
+from typing import Generator, Tuple
+
+def card_number_generator(start: int, end: int) -> Generator[str, None, None]:
+    """Генератор последовательности номеров карт"""
+
     # Проверяем корректность входных данных
     if not (1 <= start <= 9999999999999999):
         raise ValueError("Начальное значение должно быть от 1 до 9999999999999999")
