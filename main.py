@@ -23,5 +23,8 @@ print(filter_by_state(list_data, "EXECUTED"))
 print(sort_by_date(list_data, True))
 
 # Домашнее задание 11.1
-for card_number in card_number_generator(1, 5):
-    print(card_number)
+try:
+    for card_number in card_number_generator(10, 1):
+        print(card_number)
+except ValueError as e:
+    print(f"Произошла ошибка: {e}")
