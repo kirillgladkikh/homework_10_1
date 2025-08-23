@@ -1,8 +1,28 @@
 from typing import Generator
 
 
+def filter_by_currency(transactions, currency_code):
+    """
+    Функция фильтрует транзакции по указанной валюте.
+
+    :param transactions: список словарей с транзакциями
+    :param currency_code: код валюты для фильтрации (например, 'USD')
+    :return: итератор по отфильтрованным транзакциям
+    """
+    for transaction in transactions:
+        # Проверяем наличие вложенных словарей и корректность структуры
+        if (
+                "operationAmount" in transaction and
+                "currency" in transaction["operationAmount"] and
+                "code" in transaction["operationAmount"]["currency"]
+        ):
+            # Сравниваем код валюты с заданным параметром
+            if transaction["operationAmount"]["currency"]["code"] == currency_code:
+                yield transaction
+
+
 def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
-    """Генератор последовательности номеров карт"""
+    """ Генератор последовательности номеров карт """
 
     # Проверяем корректность входных данных
     if not (1 <= start <= 9999999999999999):
