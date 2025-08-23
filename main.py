@@ -30,7 +30,6 @@ print(sort_by_date(list_data, True))
 # Домашнее задание 11.1
 print('\nДомашнее задание 11.1:')
 
-
 # Выполняем функцию filter_by_currency
 
 # Подставляем исходные данные из модуля data_generators.py
