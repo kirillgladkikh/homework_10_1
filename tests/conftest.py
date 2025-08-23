@@ -1,5 +1,7 @@
 import pytest
 
+from data.data_generators import get_transactions
+
 
 @pytest.fixture
 def card_number_masked() -> str:
