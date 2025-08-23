@@ -2,7 +2,7 @@
 
 ## Описание:
 
-Проект "Домашнее задание 10.2" - это код на Python покрытый тестами (см. раздел "Тесты").
+Проект "Домашнее задание 11.1" - это код на Python покрытый тестами (см. раздел "Тесты").
 
 Содержит функции:
 
@@ -24,7 +24,13 @@ filter_by_state - фильтрует список словарей по знач
 
 sort_by_date - сортирует список словарей по дате в порядке убывания или возрастания. Возвращает: отсортированный список словарей.
 
+### модуль [generators.py](src%2Fgenerators.py)
 
+filter_by_currency - принимает на вход список словарей, представляющих транзакции. Возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной.
+
+transaction_descriptions - принимает список словарей с транзакциями и возвращает описание каждой операции по очереди.
+
+card_number_generator - выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты. Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999. Генератор должен принимать начальное и конечное значения для генерации диапазона номеров.
 
 ## Установка:
 
@@ -87,17 +93,52 @@ Visa Platinum 7000 79** **** 6361  # выход функции
 
 [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}, {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
 
+### filter_by_currency
+
+Выход функции для входных данных из [data_generators.py](data%2Fdata_generators.py), если вторым аргументов передано 'USD':
+
+{"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}}, "description": "Перевод организации", "from": "Счет 75106830613657916952", to": "Счет 11776614605963066702"}
+{"id": 142264268, "state": "EXECUTED", "date": "2019-04-04T23:20:05.206878", "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}}, "description": "Перевод со счета на счет", "from": "Счет 19708645243227258542", "to": "Счет 75651667383060284188"}
+
+### transaction_descriptions
+
+Выход функции для входных данных из [data_generators.py](data%2Fdata_generators.py):
+
+    Перевод организации 
+    Перевод со счета на счет
+    Перевод со счета на счет
+    Перевод с карты на карту
+    Перевод организации
+
+### card_number_generator
+
+Выход функции (например для номеров карт от 1 до 5):
+
+    0000 0000 0000 0001
+    0000 0000 0000 0002
+    0000 0000 0000 0003
+    0000 0000 0000 0004
+    0000 0000 0000 0005
+
 ## Тесты
 
 Созданы тестовые модули:
 
-[test_masks.py](tests%2Ftest_masks.py) для модуля [masks.py](src%2Fmasks.py)
+для модуля [masks.py](src%2Fmasks.py): [test_masks.py](tests%2Ftest_masks.py) 
 
-[test_widget.py](tests%2Ftest_widget.py) для модуля [widget.py](src%2Fwidget.py)
+для модуля [widget.py](src%2Fwidget.py): [test_widget.py](tests%2Ftest_widget.py) 
 
-[test_processing.py](tests%2Ftest_processing.py) для модуля [processing.py](src%2Fprocessing.py)
+для модуля [processing.py](src%2Fprocessing.py): [test_processing.py](tests%2Ftest_processing.py) 
 
-Также создан модуль [conftest.py](tests%2Fconftest.py) для исходных тестовых данных, содержащий фикстуры и параметризацию.
+для модуля [generators.py](src%2Fgenerators.py):
+- [test_generators_filter_by_currency.py](tests%2Ftest_generators_filter_by_currency.py)
+- [test_generators_transaction_descriptions.py](tests%2Ftest_generators_transaction_descriptions.py)
+- [test_splitted_card_number_generator.py](tests%2Ftest_splitted_card_number_generator.py)
+
+Также созданы:
+
+- модуль [conftest.py](tests%2Fconftest.py) для исходных тестовых данных, содержащий фикстуры и параметризацию.
+- модуль [data_generators.py](data%2Fdata_generators.py) - для исходных данных функций модуля [generators.py](src%2Fgenerators.py) и их тестов.
 
 
 ## Документация:
