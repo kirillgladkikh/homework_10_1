@@ -1,23 +1,26 @@
 import pytest
-from src.generators import transaction_descriptions
+
 from data.data_generators import get_transactions
+from src.generators import transaction_descriptions
 
 # Тест, проверяющий, что функция возвращает корректные описания для каждой транзакции.
 
+
 # Фикстура для тестовых данных
 @pytest.fixture
-def sample_transactions() -> None:
+def sample_transactions() -> list:
     return get_transactions()
+
 
 # Фикстура для ожидаемых описаний
 @pytest.fixture
-def expected_descriptions():
+def expected_descriptions() -> list:
     return [
         "Перевод организации",
         "Перевод со счета на счет",
         "Перевод со счета на счет",
         "Перевод с карты на карту",
-        "Перевод организации"
+        "Перевод организации",
     ]
 
 
@@ -44,7 +47,7 @@ def test_transaction_descriptions(sample_transactions: list, expected_descriptio
 # Тест, который тестирует работу функции с различным количеством входных транзакций
 # Фикстура для получения входных данных
 @pytest.fixture
-def base_transactions():
+def base_transactions() -> list:
     return get_transactions()
 
 
@@ -57,7 +60,7 @@ def base_transactions():
         (2, 2),  # Две транзакции
         (3, 3),  # Три транзакции
         (5, 5),  # Все транзакции
-    ]
+    ],
 )
 def test_transaction_descriptions_count(base_transactions: list, num_transactions: int, expected_length: int) -> None:
     """
@@ -79,9 +82,10 @@ def test_transaction_descriptions_count(base_transactions: list, num_transaction
 # Тест, проверяющий, что генератор не завершается ошибкой:
 # при обработке пустого списка.
 
+
 # Фикстура для пустых данных
 @pytest.fixture
-def empty_transactions():
+def empty_transactions() -> list:
     return []
 
 

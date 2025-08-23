@@ -1,14 +1,16 @@
 import pytest
-from src.generators import filter_by_currency
+
 from data.data_generators import get_transactions
+from src.generators import filter_by_currency
 
 # Тест, проверяющий, что:
 # функция корректно фильтрует транзакции по заданной валюте.
 # функция правильно обрабатывает случаи, когда транзакции в заданной валюте отсутствуют.
 
+
 # Фикстура для тестовых данных
 @pytest.fixture
-def sample_transactions() -> None:
+def sample_transactions() -> list:
     return get_transactions()
 
 
@@ -20,10 +22,12 @@ def sample_transactions() -> None:
         ("USD", 2),  # Ожидаем 2 транзакции в USD
         ("RUB", 2),  # Ожидаем 2 транзакции в RUB
         ("EUR", 1),  # Ожидаем 1 транзакцию в EUR
-        ("PND", 0)  # Ожидаем 0 транзакций в несуществующей валюте
-    ]
+        ("PND", 0),  # Ожидаем 0 транзакций в несуществующей валюте
+    ],
 )
-def test_filter_by_currency_transactions_currency_quantity(sample_transactions: list, currency_code: str, expected_count: int) -> None:
+def test_filter_by_currency_transactions_currency_quantity(
+    sample_transactions: list, currency_code: str, expected_count: int
+) -> None:
     """
     Тест проверяет поведение функции для разных валют и их вхождений во входном списке транзакций
     """
@@ -45,9 +49,10 @@ def test_filter_by_currency_transactions_currency_quantity(sample_transactions: 
 # при обработке пустого списка.
 # или списка без соответствующих валютных операций.
 
+
 # Фикстура для пустых данных
 @pytest.fixture
-def empty_transactions():
+def empty_transactions() -> list:
     return []
 
 
