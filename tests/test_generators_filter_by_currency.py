@@ -2,10 +2,13 @@ import pytest
 from src.generators import filter_by_currency
 from data.data_generators import get_transactions
 
+# Тест, проверяющий, что:
+# функция корректно фильтрует транзакции по заданной валюте.
+# функция правильно обрабатывает случаи, когда транзакции в заданной валюте отсутствуют.
 
 # Фикстура для тестовых данных
 @pytest.fixture
-def sample_transactions():
+def sample_transactions() -> None:
     return get_transactions()
 
 
@@ -20,7 +23,10 @@ def sample_transactions():
         ("PND", 0)  # Ожидаем 0 транзакций в несуществующей валюте
     ]
 )
-def test_filter_by_currency(sample_transactions: list, currency_code: str, expected_count: int) -> None:
+def test_filter_by_currency_transactions_currency_quantity(sample_transactions: list, currency_code: str, expected_count: int) -> None:
+    """
+    Тест проверяет поведение функции для разных валют и их вхождений во входном списке транзакций
+    """
     # Получаем генератор отфильтрованных транзакций
     generator = filter_by_currency(sample_transactions, currency_code)
 
@@ -34,3 +40,31 @@ def test_filter_by_currency(sample_transactions: list, currency_code: str, expec
     for transaction in result:
         assert transaction["operationAmount"]["currency"]["code"] == currency_code
 
+
+# Тест, проверяющий, что генератор не завершается ошибкой:
+# при обработке пустого списка.
+# или списка без соответствующих валютных операций.
+
+# Фикстура для пустых данных
+@pytest.fixture
+def empty_transactions():
+    return []
+
+
+def test_filter_by_currency_empty_input(empty_transactions: list) -> None:
+    """
+    Тест проверяет поведение функции при пустом входном списке транзакций
+    """
+    # Проверяем работу с пустой валютой
+    for currency_code in ["USD", "RUB", "EUR", "PND"]:
+        # Получаем генератор отфильтрованных транзакций
+        generator = filter_by_currency(empty_transactions, currency_code)
+
+        # Собираем результаты в список
+        result = list(generator)
+
+        # Проверяем, что нет валют
+        assert len(result) == 0
+
+        # Проверяем, что результат пустой список
+        assert result == []
