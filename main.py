@@ -30,15 +30,22 @@ print(sort_by_date(list_data, True))
 # Домашнее задание 11.1
 print('\nДомашнее задание 11.1:')
 
+
+# Выполняем функцию filter_by_currency
+
+# Подставляем исходные данные из модуля data_generators.py
 data = get_transactions()
+
+# Получаем данные из функции filter_by_currency
+# без генерации ошибки выполнения
+# для любого количества результатов генератора
+# и для любой валюты
 currency_transactions = filter_by_currency(data, "PND")
 for transaction in currency_transactions:
     print(transaction)
 
-# for _ in range(2):
-#     print(next(usd_transactions))
 
-
+# Выполняем функцию card_number_generator
 try:
     for card_number in card_number_generator(10, 1):
         print(card_number)
