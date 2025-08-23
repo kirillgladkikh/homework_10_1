@@ -1,11 +1,11 @@
 from typing import Generator
 
 
-def filter_by_currency(transactions, currency_code):
+def filter_by_currency(transactions: list, currency_code: str) -> Generator[list, None, None]:
     """
     Функция фильтрует транзакции по указанной валюте.
 
-    :param transactions: список словарей с транзакциями
+    :param get_transactions: функция, возвращающая список словарей с транзакциями
     :param currency_code: код валюты для фильтрации (например, 'USD')
     :return: итератор по отфильтрованным транзакциям
     """
