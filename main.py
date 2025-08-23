@@ -1,5 +1,5 @@
 from data.data_generators import get_transactions
-from src.generators import filter_by_currency, card_number_generator
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
@@ -30,18 +30,23 @@ print(sort_by_date(list_data, True))
 # Домашнее задание 11.1
 print('\nДомашнее задание 11.1:')
 
-# Выполняем функцию filter_by_currency
-
 # Подставляем исходные данные из модуля data_generators.py
 data = get_transactions()
+
+# Выполняем функцию filter_by_currency
 
 # Получаем данные из функции filter_by_currency
 # без генерации ошибки выполнения
 # для любого количества результатов генератора
 # и для любой валюты
-currency_transactions = filter_by_currency(data, "PND")
+currency_transactions = filter_by_currency(data, "USD")
 for transaction in currency_transactions:
     print(transaction)
+
+# Выполняем функцию transaction_descriptions
+descriptions = transaction_descriptions(data)
+for description in descriptions:
+    print(description)
 
 
 # Выполняем функцию card_number_generator

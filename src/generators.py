@@ -21,6 +21,21 @@ def filter_by_currency(transactions: list, currency_code: str) -> Generator[list
                 yield transaction
 
 
+def transaction_descriptions(transactions: list) -> Generator[list, None, None]:
+    for transaction in transactions:
+        # Проверяем наличие вложенных словарей и корректность структуры
+        if "description" in transaction:
+            yield transaction["description"]
+
+
+
+
+
+
+
+
+
+
 def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
     """ Генератор последовательности номеров карт """
 
