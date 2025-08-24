@@ -2,9 +2,19 @@ from functools import wraps
 
 
 def log(filename=None):
+    """
+    Декоратор для логирования выполнения функции.
+    Если задан `filename`, лог записывается в файл, иначе выводится в консоль.
+    """
     def decorator(func):
+        """
+        Возвращает обёртку, которая логирует выполнение функции `func`.
+        """
         @wraps(func)
         def wrapper(*args, **kwargs):
+            """
+            Обёртка для выполнения функции `func` с логированием её результата и ошибок.
+            """
             try:
                 result = func(*args, **kwargs)
                 name_func = func.__name__
