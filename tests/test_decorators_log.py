@@ -6,6 +6,7 @@ from src.decorators import log, my_function
 
 # Проверка на успешное выполнение функции
 
+
 def test_my_function_success(capsys):
     result = my_function(4, 2)
     assert result == 6
@@ -15,9 +16,11 @@ def test_my_function_success(capsys):
 
 # Проверка на вывод в файл
 
+
 @log(filename="test_log.txt")
 def my_function_sum(x, y):
     return x + y
+
 
 def test_my_function_file_output():
     my_function_sum(2, 3)
@@ -29,9 +32,11 @@ def test_my_function_file_output():
 
 # Проверка обработки других исключений:
 
+
 @log()
 def my_function_key_error():
-    return {'a': 1}['b']
+    return {"a": 1}["b"]
+
 
 def test_my_function_key_error(capsys):
     my_function_key_error()
@@ -41,9 +46,11 @@ def test_my_function_key_error(capsys):
 
 # Проверка с разными типами аргументов:
 
+
 @log()
 def my_function_concat(a, b):
     return a + b
+
 
 def test_my_function_concat_strings(capsys):
     result = my_function_concat("hello", "world")
@@ -54,8 +61,10 @@ def test_my_function_concat_strings(capsys):
 
 # Проверка очистки файла:
 
+
 def test_file_cleanup():
     filename = "test_log_cleanup.txt"
+
     @log(filename=filename)
     def my_function_cleanup(x):
         return x
@@ -67,6 +76,7 @@ def test_file_cleanup():
 
 
 # Проверка на отсутствие аргументов:
+
 
 @log()
 def my_function_no_args():

@@ -6,10 +6,12 @@ def log(filename=None):
     Декоратор для логирования выполнения функции.
     Если задан `filename`, лог записывается в файл, иначе выводится в консоль.
     """
+
     def decorator(func):
         """
         Возвращает обёртку, которая логирует выполнение функции `func`.
         """
+
         @wraps(func)
         def wrapper(*args, **kwargs):
             """
@@ -40,4 +42,7 @@ def log(filename=None):
 @log(filename="")
 # @log(filename="mylog.txt")
 def my_function(x, y):
+    """
+    Функция складывает два целых числа.
+    """
     return x + y
