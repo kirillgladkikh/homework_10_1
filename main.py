@@ -61,4 +61,4 @@ except ValueError as e:
 # Домашнее задание 11.2
 print("\nДомашнее задание 11.2:")
 
-my_function(1, 2)
+my_function(4, 2)
