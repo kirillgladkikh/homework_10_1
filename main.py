@@ -1,3 +1,4 @@
+from src.decorators import my_function
 from data.data_generators import get_transactions
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_account, get_mask_card_number
@@ -55,3 +56,9 @@ try:
         print(card_number)
 except ValueError as e:
     print(f"Произошла ошибка: {e}")
+
+
+# Домашнее задание 11.2
+print("\nДомашнее задание 11.2:")
+
+my_function(1, 2)
