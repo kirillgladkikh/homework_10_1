@@ -1,8 +1,8 @@
-import pytest
 import os
 
-from src.decorators import log, my_function
+import pytest
 
+from src.decorators import log, my_function
 
 # Проверка на успешное выполнение функции
 
