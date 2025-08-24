@@ -1,0 +1,48 @@
+from functools import wraps
+
+
+def log(filename=None):
+    """
+    Декоратор для логирования выполнения функции.
+    Если задан `filename`, лог записывается в файл, иначе выводится в консоль.
+    """
+
+    def decorator(func):
+        """
+        Возвращает обёртку, которая логирует выполнение функции `func`.
+        """
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            """
+            Обёртка для выполнения функции `func` с логированием её результата и ошибок.
+            """
+            try:
+                result = func(*args, **kwargs)
+                name_func = func.__name__
+                if filename:
+                    file = open(filename, "a", encoding="utf-8")
+                    file.write(f"Функция {name_func} ок. Результат: {result}" + "\n")
+                    file.close()
+                else:
+                    print(f"{name_func} ок. Результат: {func(*args, **kwargs)}")
+            except Exception as e:
+                result = None
+                print(f"{func.__name__} error: {e}. Inputs: {args}, {kwargs}")
+            except ZeroDivisionError:
+                result = None
+                print(f"{func.__name__} error: ZeroDivisionError. Inputs: {args}, {kwargs}")
+            return result
+
+        return wrapper
+
+    return decorator
+
+
+@log(filename="")
+# @log(filename="mylog.txt")
+def my_function(x, y):
+    """
+    Функция складывает два целых числа.
+    """
+    return x + y
