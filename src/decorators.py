@@ -20,23 +20,48 @@ def log(filename=None):
             try:
                 result = func(*args, **kwargs)
                 name_func = func.__name__
+
+                # Формируем сообщение
+                message = f"Функция {name_func} ок. Результат: {result}"
+
+                # Записываем в файл или выводим в консоль
                 if filename:
-                    file = open(filename, "a", encoding="utf-8")
-                    file.write(f"Функция {name_func} ок. Результат: {result}" + "\n")
-                    file.close()
+                    with open(filename, "a", encoding="utf-8") as file:
+                        file.write(message + "\n")
                 else:
-                    print(f"{name_func} ок. Результат: {func(*args, **kwargs)}")
+                    print(message)
+
+                return result
+
+            except ZeroDivisionError as e:
+                error_message = (
+                    f"{func.__name__} error: ZeroDivisionError. "
+                    f"Inputs: {args}, {kwargs}"
+                )
+                return handle_error(error_message, filename)
+
             except Exception as e:
-                result = None
-                print(f"{func.__name__} error: {e}. Inputs: {args}, {kwargs}")
-            except ZeroDivisionError:
-                result = None
-                print(f"{func.__name__} error: ZeroDivisionError. Inputs: {args}, {kwargs}")
-            return result
+                error_message = (
+                    f"{func.__name__} error: {str(e)}. "
+                    f"Inputs: {args}, {kwargs}"
+                )
+                return handle_error(error_message, filename)
 
         return wrapper
 
     return decorator
+
+
+def handle_error(message: str, filename: str) -> None:
+    """
+    Обрабатывает запись ошибки в файл или консоль.
+    """
+    if filename:
+        with open(filename, "a", encoding="utf-8") as file:
+            file.write(message + "\n")
+    else:
+        print(message)
+    raise  # Перебрасываем исключение после логирования
 
 
 @log(filename="")
