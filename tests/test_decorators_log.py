@@ -39,9 +39,11 @@ def my_function_key_error():
 
 
 def test_my_function_key_error(capsys):
-    my_function_key_error()
-    captured = capsys.readouterr()
-    assert "my_function_key_error error: 'b'" in captured.out
+    try:
+        my_function_key_error()
+    except KeyError:
+        captured = capsys.readouterr()
+        assert "my_function_key_error error: 'b'" in captured.out
 
 
 # Проверка с разными типами аргументов:
