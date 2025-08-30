@@ -62,3 +62,8 @@ except ValueError as e:
 print("\nДомашнее задание 11.2:")
 
 my_function(4, 2)
+
+
+# Домашнее задание 12.1
+transactions = load_transactions('operations.json')
+print(transactions)
