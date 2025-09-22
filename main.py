@@ -4,6 +4,7 @@ from src.generators import card_number_generator, filter_by_currency, transactio
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
+from src.utils import load_transactions
 
 # Домашнее задание 9.1
 print("\nДомашнее задание 9.1:")
@@ -65,5 +66,6 @@ my_function(4, 2)
 
 
 # Домашнее задание 12.1
-transactions = load_transactions('operations.json')
+print("\nДомашнее задание 12.1:")
+transactions = load_transactions('data/operations.json')
 print(transactions)
