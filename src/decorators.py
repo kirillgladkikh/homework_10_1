@@ -34,17 +34,11 @@ def log(filename=None):
                 return result
 
             except ZeroDivisionError as e:
-                error_message = (
-                    f"{func.__name__} error: ZeroDivisionError. "
-                    f"Inputs: {args}, {kwargs}"
-                )
+                error_message = f"{func.__name__} error: ZeroDivisionError. " f"Inputs: {args}, {kwargs}"
                 return handle_error(error_message, filename)
 
             except Exception as e:
-                error_message = (
-                    f"{func.__name__} error: {str(e)}. "
-                    f"Inputs: {args}, {kwargs}"
-                )
+                error_message = f"{func.__name__} error: {str(e)}. " f"Inputs: {args}, {kwargs}"
                 return handle_error(error_message, filename)
 
         return wrapper

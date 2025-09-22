@@ -1,6 +1,6 @@
 import os
 
-import pytest
+# import pytest
 
 from src.decorators import log, my_function
 
