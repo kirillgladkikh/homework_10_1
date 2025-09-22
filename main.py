@@ -1,11 +1,11 @@
 from data.data_generators import get_transactions
 from src.decorators import my_function
+from src.external_api import get_exchange_rate
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
-from src.widget import get_date, mask_account_card
 from src.utils import load_transactions
-from src.external_api import get_exchange_rate
+from src.widget import get_date, mask_account_card
 
 # Домашнее задание 9.1
 print("\nДомашнее задание 9.1:")
