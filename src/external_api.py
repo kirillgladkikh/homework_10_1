@@ -1,6 +1,10 @@
+import os
 import requests
+from dotenv import load_dotenv
 
-#API_KEY_EXCHANGE_RATES
+load_dotenv('.env')
+
+API_KEY = os.getenv('API_KEY_EXCHANGE_RATES')
 
 def get_exchange_rate(transaction_amount: str ='1000.0', currency: str ='RUB') -> float:
     """
@@ -10,9 +14,8 @@ def get_exchange_rate(transaction_amount: str ='1000.0', currency: str ='RUB') -
     :return: конвертированная сумма в рублях
     """
     if currency != 'RUB':
-        # url = "https://api.apilayer.com/exchangerates_data/convert?to=USD&from=RUB&amount=1000.0"
         url = f'https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={transaction_amount}'
-        headers = {"apikey": "q1xBP6wP6VEfymRmntgsFxdABB35xlKm"}
+        headers = {"apikey": API_KEY}
 
         # Выполняем GET-запрос к сайту и сохраняем ответ в переменную response
         response = requests.get(url, headers=headers)
