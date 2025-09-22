@@ -71,5 +71,13 @@ print("\nДомашнее задание 12.1:")
 transactions = load_transactions('data/operations.json')
 print(transactions)
 
-amount = get_exchange_rate('1000.0', 'EUR')
-print(f'Amount is: {amount}')
+for transaction in transactions:
+    # Проверяем наличие ключа operationAmount
+    if 'operationAmount' in transaction:
+        # Получаем значение amount из словаря транзакций
+        transaction_amount = transaction['operationAmount']['amount']
+        transaction_currency_code = transaction['operationAmount']['currency']['code']
+        amount = get_exchange_rate(transaction_amount, transaction_currency_code)
+        print(f'Amount is: {amount} RUB (from {transaction_currency_code})')
+    else:
+        print("==============Предупреждение: операция без operationAmount")

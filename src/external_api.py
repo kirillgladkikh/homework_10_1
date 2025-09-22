@@ -22,8 +22,11 @@ def get_exchange_rate(transaction_amount: str ='1000.0', currency: str ='RUB') -
 
         data = response.json()  # Преобразуем ответ в словарь
 
-        # Извлекаем из API-запроса сумму транзакции в рублях
-        amount = data['result']
+        if 'result' in data:
+            # Извлекаем из API-запроса сумму транзакции в рублях
+            amount = data['result']
+        else:
+            print("==============Предупреждение: операция без result")
 
         # Получаем статус-код из ответа и выводим его на экран
         status_code = response.status_code
