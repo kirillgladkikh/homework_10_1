@@ -1,19 +1,20 @@
 from functools import wraps
+from typing import Any, Callable
 
 
-def log(filename=None):
+def log(filename=None) -> Callable:
     """
     Декоратор для логирования выполнения функции.
     Если задан `filename`, лог записывается в файл, иначе выводится в консоль.
     """
 
-    def decorator(func):
+    def decorator(func: Callable) -> Callable:
         """
         Возвращает обёртку, которая логирует выполнение функции `func`.
         """
 
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             """
             Обёртка для выполнения функции `func` с логированием её результата и ошибок.
             """
@@ -33,7 +34,7 @@ def log(filename=None):
 
                 return result
 
-            except ZeroDivisionError as e:
+            except ZeroDivisionError:
                 error_message = f"{func.__name__} error: ZeroDivisionError. " f"Inputs: {args}, {kwargs}"
                 return handle_error(error_message, filename)
 
@@ -60,7 +61,7 @@ def handle_error(message: str, filename: str) -> None:
 
 @log(filename="")
 # @log(filename="mylog.txt")
-def my_function(x, y):
+def my_function(x: int, y: int) -> int:
     """
     Функция складывает два целых числа.
     """

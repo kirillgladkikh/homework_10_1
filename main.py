@@ -9,6 +9,7 @@ from src.widget import get_date, mask_account_card
 
 # Домашнее задание 9.1
 print("\nДомашнее задание 9.1:")
+print("+Домашнее задание 12.2 (logger):")
 print(get_mask_card_number(1234567890123456))
 print(get_mask_account(73654108430135874305))
 
@@ -68,6 +69,7 @@ my_function(4, 2)
 
 # Домашнее задание 12.1
 print("\nДомашнее задание 12.1:")
+print("+Домашнее задание 12.2 (logger):")
 transactions = load_transactions("data/operations.json")
 print(transactions)
 
