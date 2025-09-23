@@ -1,8 +1,10 @@
 import json
 import os
-from typing import Dict, List
 
 from tests.logger_utils import logger
+
+# from typing import Dict, List
+
 
 
 def load_transactions(file_path: str):

@@ -1,7 +1,7 @@
 import os
 from typing import Any
-from src.decorators import log, my_function
 
+from src.decorators import log, my_function
 
 # Проверка на успешное выполнение функции
 
