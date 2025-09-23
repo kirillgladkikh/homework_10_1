@@ -1,37 +1,47 @@
+from tests.logger_masks import logger
+
 def get_mask_card_number(card_number: int) -> str:
     """Функция get_mask_card_number принимает на вход номер карты в виде числа
     и возвращает маску номера по правилу XXXX XX** **** XXXX"""
 
-    # Преобразуем номер карты в строку
-    card_str = str(card_number)
+    try:
+        card_str = str(card_number)
+        logger.debug(f"Получен номер карты для обработки: {card_str}")
 
-    # Проверяем длину строки
-    if len(card_str) == 16:
+        if len(card_str) == 16:
+            first_part = card_str[:6]
+            masked_part = "** **** "
+            last_part = card_str[12:]
+            result = f"{first_part[:4]} {first_part[4:]}{masked_part}{last_part}"
+            logger.info(f"Успешно создана маска карты: {result}")
+            return result
+        else:
+            error_message = "номер карты не равен 16 символам"
+            logger.error(f"Ошибка: {error_message}. Получено {len(card_str)} символов")
+            return error_message
 
-        # Разделяем первые 6 цифр
-        first_part = card_str[:6]
-
-        # Формируем среднюю часть с масками
-        masked_part = "** **** "
-
-        # Получаем последние 4 цифры
-        last_part = card_str[12:]
-
-        # Формируем итоговую маску с пробелами
-        return f"{first_part[:4]} {first_part[4:]}{masked_part}{last_part}"
-    else:
-        return "номер карты не равен 16 символам"
+    except Exception as e:
+        logger.exception("Произошла непредвиденная ошибка при обработке номера карты")
+        return "Произошла ошибка при обработке номера карты"
 
 
 def get_mask_account(account_number: int) -> str:
     """Функция get_mask_account принимает на вход номер счета в виде числа
     и возвращает его маску **XXXX"""
 
-    # Преобразуем номер счета в строку
-    account_str = str(account_number)
+    try:
+        account_str = str(account_number)
+        logger.debug(f"Получен номер счета для обработки: {account_str}")
 
-    if len(account_str) == 20:
-        # Формируем итоговую маску
-        return f"**{account_str[-4:]}"
-    else:
-        return "номер счета не равен 20 символам"
+        if len(account_str) == 20:
+            result = f"**{account_str[-4:]}"
+            logger.info(f"Успешно создана маска счета: {result}")
+            return result
+        else:
+            error_message = "номер счета не равен 20 символам"
+            logger.error(f"Ошибка: {error_message}. Получено {len(account_str)} символов")
+            return error_message
+
+    except Exception as e:
+        logger.exception("Произошла непредвиденная ошибка при обработке номера счета")
+        return "Произошла ошибка при обработке номера счета"
