@@ -1,5 +1,6 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from src.external_api import get_exchange_rate
 
 
@@ -7,7 +8,7 @@ class TestExchangeRate(unittest.TestCase):
 
     @patch("src.external_api.API_KEY", "q1xBP6wP6VEfymRmntgsFxdABB35xlKm")  # Патч API_KEY напрямую
     @patch("requests.get")  # Патч requests.get
-    def test_successful_conversion(self, mock_get):
+    def test_successful_conversion(self, mock_get: MagicMock) -> None:
         # Проверяем, что API_KEY установлен правильно
         from src.external_api import API_KEY
 
@@ -34,7 +35,7 @@ class TestExchangeRate(unittest.TestCase):
         )
 
     @patch("requests.get")
-    def test_same_currency(self, mock_get):
+    def test_same_currency(self, mock_get: MagicMock) -> None:
         # Проверяем случай, когда валюта совпадает с RUB
         result = get_exchange_rate(transaction_amount="1000.0", currency="RUB")
         self.assertEqual(result, 1000.0)

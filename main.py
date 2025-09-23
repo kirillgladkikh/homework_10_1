@@ -69,7 +69,7 @@ my_function(4, 2)
 
 # Домашнее задание 12.1
 print("\nДомашнее задание 12.1:")
-print("+Домашнее задание 12.2 (logged):")
+print("+Домашнее задание 12.2 (logger):")
 transactions = load_transactions("data/operations.json")
 print(transactions)
 

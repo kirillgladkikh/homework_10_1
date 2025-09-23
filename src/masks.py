@@ -21,7 +21,7 @@ def get_mask_card_number(card_number: int) -> str:
             logger.error(f"Ошибка: {error_message}. Получено {len(card_str)} символов")
             return error_message
 
-    except Exception as e:
+    except Exception:
         logger.exception("Произошла непредвиденная ошибка при обработке номера карты")
         return "Произошла ошибка при обработке номера карты"
 
@@ -43,6 +43,6 @@ def get_mask_account(account_number: int) -> str:
             logger.error(f"Ошибка: {error_message}. Получено {len(account_str)} символов")
             return error_message
 
-    except Exception as e:
+    except Exception:
         logger.exception("Произошла непредвиденная ошибка при обработке номера счета")
         return "Произошла ошибка при обработке номера счета"

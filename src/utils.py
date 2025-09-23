@@ -1,12 +1,11 @@
-import logging
-import os
 import json
-from datetime import datetime
+import os
 from typing import Dict, List
+
 from tests.logger_utils import logger
 
 
-def load_transactions(file_path: str) -> List[Dict]:
+def load_transactions(file_path: str):
     """
     Загружает данные о транзакциях из JSON-файла.
     Args:
@@ -41,13 +40,13 @@ def load_transactions(file_path: str) -> List[Dict]:
                 logger.info("Данные успешно проверены и валидированы")
                 return data
 
-            except json.JSONDecodeError as e:
+            except json.JSONDecodeError:
                 logger.error("Ошибка декодирования JSON", exc_info=True)
                 return []
-            except Exception as e:
+            except Exception:
                 logger.exception("Произошла непредвиденная ошибка при обработке файла")
                 return []
 
-    except Exception as e:
+    except Exception:
         logger.exception("Критическая ошибка при работе с файлом")
         return []

@@ -1,13 +1,12 @@
 import os
-
-# import pytest
-
+from typing import Any
 from src.decorators import log, my_function
+
 
 # Проверка на успешное выполнение функции
 
 
-def test_my_function_success(capsys):
+def test_my_function_success(capsys: Any) -> None:
     result = my_function(4, 2)
     assert result == 6
     captured = capsys.readouterr()
@@ -18,11 +17,11 @@ def test_my_function_success(capsys):
 
 
 @log(filename="test_log.txt")
-def my_function_sum(x, y):
+def my_function_sum(x: int, y: int) -> int:
     return x + y
 
 
-def test_my_function_file_output():
+def test_my_function_file_output() -> None:
     my_function_sum(2, 3)
     with open("test_log.txt", "r", encoding="utf-8") as file:
         content = file.read()
@@ -34,11 +33,11 @@ def test_my_function_file_output():
 
 
 @log()
-def my_function_key_error():
+def my_function_key_error() -> int:
     return {"a": 1}["b"]
 
 
-def test_my_function_key_error(capsys):
+def test_my_function_key_error(capsys: Any) -> None:
     try:
         my_function_key_error()
     except KeyError:
@@ -50,11 +49,11 @@ def test_my_function_key_error(capsys):
 
 
 @log()
-def my_function_concat(a, b):
+def my_function_concat(a: int, b: int) -> int:
     return a + b
 
 
-def test_my_function_concat_strings(capsys):
+def test_my_function_concat_strings(capsys: Any) -> None:
     result = my_function_concat("hello", "world")
     assert result == "helloworld"
     captured = capsys.readouterr()
@@ -64,11 +63,11 @@ def test_my_function_concat_strings(capsys):
 # Проверка очистки файла:
 
 
-def test_file_cleanup():
+def test_file_cleanup() -> None:
     filename = "test_log_cleanup.txt"
 
     @log(filename=filename)
-    def my_function_cleanup(x):
+    def my_function_cleanup(x: int) -> int:
         return x
 
     my_function_cleanup(1)
@@ -81,11 +80,11 @@ def test_file_cleanup():
 
 
 @log()
-def my_function_no_args():
+def my_function_no_args() -> str:
     return "No arguments"
 
 
-def test_my_function_no_args(capsys):
+def test_my_function_no_args(capsys: Any) -> None:
     result = my_function_no_args()
     assert result == "No arguments"
     captured = capsys.readouterr()
