@@ -1,6 +1,9 @@
-import json
+import logging
 import os
+import json
+from datetime import datetime
 from typing import Dict, List
+from tests.logger_utils import logger
 
 
 def load_transactions(file_path: str) -> List[Dict]:
@@ -11,31 +14,40 @@ def load_transactions(file_path: str) -> List[Dict]:
     Returns:
         List[Dict]: список словарей с данными транзакций
     """
-    # Проверяем существование файла
-    if not os.path.exists(file_path):
-        print(f"Файл {file_path} не найден")
-        return []
-
     try:
+        # Проверяем существование файла
+        if not os.path.exists(file_path):
+            logger.error(f"Файл {file_path} не найден")
+            return []
+
+        logger.debug(f"Попытка загрузить файл: {file_path}")
+
         with open(file_path, "r", encoding="utf-8") as file:
-            data = json.load(file)
+            try:
+                data = json.load(file)
+                logger.debug("Данные успешно загружены из файла")
 
-            # Проверяем, что данные являются списком
-            if not isinstance(data, list):
-                print("Данные в файле не являются списком")
-                return []
-
-            # Проверяем, что все элементы списка являются словарями
-            for item in data:
-                if not isinstance(item, dict):
-                    print("Элементы списка должны быть словарями")
+                # Проверяем, что данные являются списком
+                if not isinstance(data, list):
+                    logger.error("Данные в файле не являются списком")
                     return []
 
-            return data
+                # Проверяем, что все элементы списка являются словарями
+                for item in data:
+                    if not isinstance(item, dict):
+                        logger.error("Элементы списка должны быть словарями")
+                        return []
 
-    except json.JSONDecodeError:
-        print("Ошибка декодирования JSON")
-        return []
+                logger.info("Данные успешно проверены и валидированы")
+                return data
+
+            except json.JSONDecodeError as e:
+                logger.error("Ошибка декодирования JSON", exc_info=True)
+                return []
+            except Exception as e:
+                logger.exception("Произошла непредвиденная ошибка при обработке файла")
+                return []
+
     except Exception as e:
-        print(f"Произошла ошибка: {str(e)}")
+        logger.exception("Критическая ошибка при работе с файлом")
         return []

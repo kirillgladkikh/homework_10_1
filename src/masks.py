@@ -1,5 +1,6 @@
 from tests.logger_masks import logger
 
+
 def get_mask_card_number(card_number: int) -> str:
     """Функция get_mask_card_number принимает на вход номер карты в виде числа
     и возвращает маску номера по правилу XXXX XX** **** XXXX"""
