@@ -3,15 +3,17 @@ import os
 from datetime import datetime
 
 # Получаем путь к корню проекта
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+# PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+# Формируем путь к директории логов
+# LOG_DIR = os.path.join(PROJECT_ROOT, "logs")
 
 # Создаем директорию для логов, если её нет
-LOG_DIR = "logs"
-if not os.path.exists(LOG_DIR):
-    os.makedirs(LOG_DIR)
+# if not os.path.exists(LOG_DIR):
+#    os.makedirs(LOG_DIR)
 
 # Формируем имя файла лога
-log_file = os.path.join(LOG_DIR, f'utils_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
+log_file = os.path.join("logs", f'utils_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
 
 # Создаем логгер
 logger = logging.getLogger("utils")

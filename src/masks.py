@@ -46,3 +46,7 @@ def get_mask_account(account_number: int) -> str:
     except Exception:
         logger.exception("Произошла непредвиденная ошибка при обработке номера счета")
         return "Произошла ошибка при обработке номера счета"
+
+
+if __name__ == "__main__":
+    print("Этот модуль запущен как основной скрипт")
