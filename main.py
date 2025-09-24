@@ -6,6 +6,7 @@ from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.utils import load_transactions
 from src.widget import get_date, mask_account_card
+from src.get_csv_xls import read_transactions_from_csv
 
 # Домашнее задание 9.1
 print("\nДомашнее задание 9.1:")
@@ -70,16 +71,21 @@ my_function(4, 2)
 # Домашнее задание 12.1
 print("\nДомашнее задание 12.1:")
 print("+Домашнее задание 12.2 (logger):")
-transactions = load_transactions("data/operations.json")
-print(transactions)
+# transactions = load_transactions("data/operations.json")
+# print(transactions)
 
-for transaction in transactions:
-    # Проверяем наличие ключа operationAmount
-    if "operationAmount" in transaction:
-        # Получаем значение amount из словаря транзакций
-        transaction_amount = transaction["operationAmount"]["amount"]
-        transaction_currency_code = transaction["operationAmount"]["currency"]["code"]
-        amount = get_exchange_rate(transaction_amount, transaction_currency_code)
-        print(f"Amount is: {amount} RUB (from {transaction_currency_code})")
-    else:
-        print("==============Предупреждение: операция без operationAmount")
+# for transaction in transactions:
+# Проверяем наличие ключа operationAmount
+#    if "operationAmount" in transaction:
+#        # Получаем значение amount из словаря транзакций
+#        transaction_amount = transaction["operationAmount"]["amount"]
+#        transaction_currency_code = transaction["operationAmount"]["currency"]["code"]
+#        amount = get_exchange_rate(transaction_amount, transaction_currency_code)
+#        print(f"Amount is: {amount} RUB (from {transaction_currency_code})")
+#    else:
+#        print("==============Предупреждение: операция без operationAmount")
+
+# Домашнее задание 13.1
+print("\nДомашнее задание 13.1:")
+transactions = read_transactions_from_csv("data/transactions.csv")
+print(transactions)
