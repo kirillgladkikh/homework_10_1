@@ -6,7 +6,7 @@ from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.utils import load_transactions
 from src.widget import get_date, mask_account_card
-from src.get_csv_xls import read_transactions_from_csv
+from src.get_csv_xls import read_transactions_from_csv, read_transactions_from_excel
 
 # Домашнее задание 9.1
 print("\nДомашнее задание 9.1:")
@@ -87,5 +87,11 @@ print("+Домашнее задание 12.2 (logger):")
 
 # Домашнее задание 13.1
 print("\nДомашнее задание 13.1:")
+
 transactions = read_transactions_from_csv("data/transactions.csv")
+print('\nGet from CSV:')
+print(transactions)
+
+transactions = read_transactions_from_excel('data/transactions_excel.xlsx')
+print('\nGet from XLSX:')
 print(transactions)
