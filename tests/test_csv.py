@@ -9,6 +9,9 @@ test_csv_content = """id;state;date;amount;currency_name;currency_code;from;to;d
 
 
 def test_read_transactions_success(monkeypatch):
+    """
+    Тест успешной работы функции чтения транзакций из CSV файла.
+    """
     # Мокаем open
     mock_file = MagicMock()
     mock_file.return_value.__enter__.return_value.read.return_value = test_csv_content
@@ -56,6 +59,9 @@ def test_read_transactions_success(monkeypatch):
 
 
 def test_file_not_found(monkeypatch):
+    """
+    Тест обработки ситуации, когда файл не найден.
+    """
     def mock_open(*args, **kwargs):
         raise FileNotFoundError
 

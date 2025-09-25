@@ -21,6 +21,9 @@ TEST_DATA = {
 
 @patch("pandas.read_excel")
 def test_read_transactions_success(mock_read_excel):
+    """
+    Тест успешной работы функции чтения транзакций из Excel файла.
+    """
     # Создаем моковый DataFrame
     mock_df = DataFrame(TEST_DATA)
     mock_read_excel.return_value = mock_df
@@ -37,6 +40,9 @@ def test_read_transactions_success(mock_read_excel):
 
 @patch("pandas.read_excel", side_effect=FileNotFoundError)
 def test_file_not_found(mock_read_excel):
+    """
+    Тест обработки ситуации, когда Excel файл не найден.
+    """
     result = read_transactions_from_excel("non_existent_file.xlsx")
     assert result == []
     mock_read_excel.assert_called_once_with("non_existent_file.xlsx", engine="openpyxl", header=0)
@@ -44,6 +50,9 @@ def test_file_not_found(mock_read_excel):
 
 @patch("pandas.read_excel", side_effect=Exception)
 def test_general_exception(mock_read_excel):
+    """
+    Тест обработки общих исключений при чтении Excel файла.
+    """
     result = read_transactions_from_excel("error_file.xlsx")
     assert result == []
     mock_read_excel.assert_called_once_with("error_file.xlsx", engine="openpyxl", header=0)
