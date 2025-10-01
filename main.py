@@ -69,6 +69,24 @@ print("\nДомашнее задание 11.2:")
 my_function(4, 2)
 
 
+# Домашнее задание 12.1
+# print("\nДомашнее задание 12.1:")
+# print("+Домашнее задание 12.2 (logger):")
+# transactions = load_transactions("data/operations.json")
+# print(transactions)
+#
+# for transaction in transactions:
+#     # Проверяем наличие ключа operationAmount
+#     if "operationAmount" in transaction:
+#         # Получаем значение amount из словаря транзакций
+#         transaction_amount = transaction["operationAmount"]["amount"]
+#         transaction_currency_code = transaction["operationAmount"]["currency"]["code"]
+#         amount = get_exchange_rate(transaction_amount, transaction_currency_code)
+#         print(f"Amount is: {amount} RUB (from {transaction_currency_code})")
+#     else:
+#         print("==============Предупреждение: операция без operationAmount")
+
+
 # Домашнее задание 13.1
 print("\nДомашнее задание 13.1:")
 
@@ -98,19 +116,168 @@ result = process_bank_operations(transactions, categories_list)
 print(result)
 
 
-# Домашнее задание 12.1
-# print("\nДомашнее задание 12.1:")
-# print("+Домашнее задание 12.2 (logger):")
-# transactions = load_transactions("data/operations.json")
-# print(transactions)
-#
-# for transaction in transactions:
-#     # Проверяем наличие ключа operationAmount
-#     if "operationAmount" in transaction:
-#         # Получаем значение amount из словаря транзакций
-#         transaction_amount = transaction["operationAmount"]["amount"]
-#         transaction_currency_code = transaction["operationAmount"]["currency"]["code"]
-#         amount = get_exchange_rate(transaction_amount, transaction_currency_code)
-#         print(f"Amount is: {amount} RUB (from {transaction_currency_code})")
-#     else:
-#         print("==============Предупреждение: операция без operationAmount")
+def main():
+    """
+    Функция реализующая основную логику проекта
+    """
+    print("\nОСНОВНАЯ ЛОГИКА ПРОЕКТА:")
+    print("\nПривет! Добро пожаловать в программу работы с банковскими транзакциями.")
+    print("Выберите необходимый пункт меню:")
+    print("1. Получить информацию о транзакциях из JSON-файла")
+    print("2. Получить информацию о транзакциях из CSV-файла")
+    print("3. Получить информацию о транзакциях из XLSX-файла")
+
+    while True:
+        # Получаем ввод от пользователя
+        user_input = input("Введите число от 1 до 3: ")
+
+        try:
+            # Преобразуем ввод в целое число
+            number = int(user_input)
+
+            # Проверяем, что число находится в допустимом диапазоне
+            if number in (1, 2, 3):
+                if number == 1:
+                    print("Для обработки выбран JSON-файл.")
+                    transactions = load_transactions("data/operations.json")
+                elif number == 2:
+                    print("Для обработки выбран CSV-файл.")
+                    transactions = read_transactions_from_csv("data/transactions.csv")
+                elif number == 3:
+                    print("Для обработки выбран XLSX-файл.")
+                    transactions = read_transactions_from_excel("data/transactions_excel.xlsx")
+                break
+            else:
+                print("Ошибка: число должно быть 1, 2 или 3. Попробуйте еще раз.")
+        except ValueError:
+            print(f"Невозможно преобразовать '{user_input}' в целое число")
+
+    # множество допустимых значений статусов фильтрации
+    valid_statuses = {"executed", "canceled", "pending"}
+
+    while True:
+        print("\nВведите статус, по которому необходимо выполнить фильтрацию.")
+        print("Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING")
+        # Получаем ввод от пользователя
+        user_input = input()
+        # Преобразуем ввод от пользователя в нижний регистр
+        status = user_input.lower()
+
+        if status in valid_statuses:
+            result_list = filter_by_state(transactions, status.upper())
+            # print(result_list)
+            if status == "executed":
+                print('Операции отфильтрованы по статусу "EXECUTED"')
+            elif status == "canceled":
+                print('Операции отфильтрованы по статусу "CANCELED"')
+            elif status == "pending":
+                print('Операции отфильтрованы по статусу "PENDING"')
+            break
+        else:
+            print(f'Статус операции "{status}" недоступен.')
+
+    while True:
+        # Получаем ввод от пользователя
+        user_input = input("Отсортировать операции по дате? 1 - Да/ 2 - Нет: ")
+
+        try:
+            # Преобразуем ввод в целое число
+            number = int(user_input)
+
+            # Проверяем, что число находится в допустимом диапазоне
+            if number in (1, 2):
+                if number == 1:
+
+                    while True:
+                        # Получаем ввод от пользователя
+                        user_input = input("Отсортировать по возрастанию (1) или по убыванию (2)? ")
+
+                        try:
+                            # Преобразуем ввод в целое число
+                            order = int(user_input)
+
+                            # Проверяем, что число находится в допустимом диапазоне
+                            if order in (1, 2):
+                                if order == 1:
+                                    result_list = sort_by_date(result_list, False)
+                                elif order == 2:
+                                    result_list = sort_by_date(result_list, True)
+                                # print(result_list)
+                                break
+                            else:
+                                print("Ошибка: число должно быть 1 или 2. Попробуйте еще раз.")
+                        except ValueError:
+                            print(f"Невозможно преобразовать '{user_input}' в целое число")
+
+                elif number == 2:
+                    break
+                break
+            else:
+                print("Ошибка: число должно быть 1 или 2. Попробуйте еще раз.")
+        except ValueError:
+            print(f"Невозможно преобразовать '{user_input}' в целое число")
+
+    while True:
+        # Получаем ввод от пользователя
+        user_input = input("Выводить только рублевые транзакции? 1 - Да/ 2 - Нет: ")
+
+        try:
+            # Преобразуем ввод в целое число
+            currency = int(user_input)
+
+            # Проверяем, что число находится в допустимом диапазоне
+            if currency in (1, 2):
+                if currency == 1:
+                    result_list = list(filter_by_currency(result_list, "RUB"))
+
+                # for transaction in result_list:
+                #     print(transaction)
+
+                break
+            else:
+                print("Ошибка: число должно быть 1 или 2. Попробуйте еще раз.")
+        except ValueError:
+            print(f"Невозможно преобразовать '{user_input}' в целое число")
+
+    while True:
+        # Получаем ввод от пользователя
+        user_input = input("Отфильтровать список транзакций по определенному слову в описании? 1 - Да/ 2 - Нет: ")
+
+        try:
+            # Преобразуем ввод в целое число
+            search = int(user_input)
+
+            # Проверяем, что число находится в допустимом диапазоне
+            if search in (1, 2):
+                if search == 1:
+                    result_list = process_bank_search(result_list, "перевод")
+
+                # print(result_list)
+                #
+                # for transaction in result_list:
+                #     print(transaction)
+
+                break
+            else:
+                print("Ошибка: число должно быть 1 или 2. Попробуйте еще раз.")
+        except ValueError:
+            print(f"Невозможно преобразовать '{user_input}' в целое число")
+
+    print("\nРаспечатываю итоговый список транзакций...")
+
+    if len(result_list) != 0:
+        print(f"Всего банковских операций в выборке: {len(result_list)}")
+
+        for transaction in result_list:
+            print(f"\n{transaction['date'][:10]} {transaction['description']}")
+            print(f"{mask_account_card(transaction['from'])} -> {mask_account_card(transaction['to'])}")
+            print(
+                f"Сумма: {transaction['operationAmount']['amount']} {transaction['operationAmount']['currency']['name']}"
+            )
+    else:
+        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+
+    return
+
+
+main()

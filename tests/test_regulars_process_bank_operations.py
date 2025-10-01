@@ -11,7 +11,7 @@ TEST_TRANSACTIONS = [
 ]
 
 
-def test_basic_functionality():
+def test_basic_functionality() -> None:
     """
     Тест базовой функциональности: проверка подсчета операций
     """
@@ -21,7 +21,7 @@ def test_basic_functionality():
     assert result == expected
 
 
-def test_empty_data():
+def test_empty_data() -> None:
     """
     Тест на пустой список операций
     """
@@ -31,7 +31,7 @@ def test_empty_data():
     assert result == expected
 
 
-def test_missing_category():
+def test_missing_category() -> None:
     """
     Тест на категорию, которой нет в данных
     """
@@ -41,7 +41,7 @@ def test_missing_category():
     assert result == expected
 
 
-def test_multiple_categories():
+def test_multiple_categories() -> None:
     """
     Тест на несколько категорий
     """
@@ -51,7 +51,7 @@ def test_multiple_categories():
     assert result == expected
 
 
-def test_no_description():
+def test_no_description() -> None:
     """
     Тест на операции без поля description
     """
@@ -62,7 +62,7 @@ def test_no_description():
     assert result == expected
 
 
-def test_empty_categories():
+def test_empty_categories() -> None:
     """
     Тест на пустой список категорий
     """
@@ -70,7 +70,7 @@ def test_empty_categories():
         process_bank_operations(TEST_TRANSACTIONS, [])
 
 
-def test_invalid_input():
+def test_invalid_input() -> None:
     """
     Тест на некорректный ввод
     """
