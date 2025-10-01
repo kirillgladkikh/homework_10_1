@@ -1,5 +1,6 @@
 import re
 from typing import List, Dict
+from collections import Counter
 
 
 def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
@@ -37,7 +38,7 @@ def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
 
 def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str, int]:
     """
-    Функция подсчета количества операций по заданным категориям.
+    Функция подсчета количества операций по заданным категориям с использованием Counter.
 
     Параметры:
     data (List[Dict]): список словарей с данными о банковских операциях
@@ -56,16 +57,13 @@ def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str
     >>> process_bank_operations(transactions, categories)
     {'Перевод организации': 2, 'Оплата в магазине': 1}
     """
-    # Инициализируем словарь с нулями для каждой категории
-    result = {category: 0 for category in categories}
+    # Собираем все описания операций в список
+    descriptions = [transaction.get('description', '') for transaction in data]
 
-    # Проходим по всем операциям
-    for transaction in data:
-        # Получаем описание операции
-        description = transaction.get('description', '')
+    # Создаем Counter для подсчета всех описаний
+    counter = Counter(descriptions)
 
-        # Если описание есть в списке категорий, увеличиваем счетчик
-        if description in result:
-            result[description] += 1
+    # Формируем итоговый результат только для указанных категорий
+    result = {category: counter[category] for category in categories}
 
     return result
