@@ -57,6 +57,22 @@ def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str
     >>> process_bank_operations(transactions, categories)
     {'Перевод организации': 2, 'Оплата в магазине': 1}
     """
+    # Проверяем тип data
+    if not isinstance(data, list):
+        raise TypeError("Параметр data должен быть списком")
+
+    # Проверяем, что все элементы data являются словарями
+    if not all(isinstance(item, dict) for item in data):
+        raise ValueError("Все элементы data должны быть словарями")
+
+    # Проверяем тип categories
+    if not isinstance(categories, list):
+        raise TypeError("Параметр categories должен быть списком")
+
+    # Добавляем проверку на пустой список категорий
+    if not categories:
+        raise ValueError("Список категорий не может быть пустым")
+
     # Собираем все описания операций в список
     descriptions = [transaction.get('description', '') for transaction in data]
 
