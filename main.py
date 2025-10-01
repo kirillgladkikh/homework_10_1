@@ -83,13 +83,6 @@ print(transactions)
 
 # Домашнее задание 13.2
 print("\nДомашнее задание 13.2:")
-print("\nДомашнее задание 13.2:")
-print("\nДомашнее задание 13.2:")
-print("\nДомашнее задание 13.2:")
-print("\nДомашнее задание 13.2:")
-print("\nДомашнее задание 13.2:")
-print("\nДомашнее задание 13.2:")
-print("\nДомашнее задание 13.2:")
 transactions = read_transactions_from_csv("data/transactions.csv")
 
 print("\nФункция №1: process_bank_search")
