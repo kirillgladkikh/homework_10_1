@@ -1,5 +1,5 @@
 import re
-from typing import List, Dict
+from typing import Dict, List
 
 
 def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
@@ -24,19 +24,19 @@ def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
         raise ValueError("Строка поиска не может быть пустой")
 
     # Создаем регулярное выражение с учетом регистра и пробелов
-    pattern = re.compile(rf'\b{re.escape(search)}\b', re.IGNORECASE)
+    pattern = re.compile(rf"\b{re.escape(search)}\b", re.IGNORECASE)
 
     # Фильтруем операции по описанию
     result = [
         transaction
         for transaction in data
-        if isinstance(transaction, dict) and  # Проверяем, что элемент является словарем
-           'description' in transaction and  # Проверяем наличие поля description
-           isinstance(transaction['description'], str) and  # Проверяем тип description
-           pattern.search(transaction['description'])
+        if isinstance(transaction, dict)  # Проверяем, что элемент является словарем
+        and "description" in transaction  # Проверяем наличие поля description
+        and isinstance(transaction["description"], str)  # Проверяем тип description
+        and pattern.search(transaction["description"])
     ]
 
     # Сортируем результат по id для предсказуемости
-    result.sort(key=lambda x: x.get('id', 0))
+    result.sort(key=lambda x: x.get("id", 0))
 
     return result

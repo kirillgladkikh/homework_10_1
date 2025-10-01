@@ -5,9 +5,9 @@ from src.generators import card_number_generator, filter_by_currency, transactio
 from src.get_csv_xls import read_transactions_from_csv, read_transactions_from_excel
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
+from src.regulars import process_bank_operations, process_bank_search
 from src.utils import load_transactions
 from src.widget import get_date, mask_account_card
-from src.regulars import process_bank_search, process_bank_operations
 
 # Домашнее задание 9.1
 print("\nДомашнее задание 9.1:")

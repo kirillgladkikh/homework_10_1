@@ -1,6 +1,6 @@
 import re
-from typing import List, Dict
 from collections import Counter
+from typing import Dict, List
 
 
 def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
@@ -24,13 +24,13 @@ def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
     [{'id': 1, 'description': 'Перевод организации'}]
     """
     # Создаем регулярное выражение с учетом регистра и пробелов
-    pattern = re.compile(rf'\b{re.escape(search)}\b', re.IGNORECASE)
+    pattern = re.compile(rf"\b{re.escape(search)}\b", re.IGNORECASE)
 
     # Фильтруем операции по описанию
     result = [
         transaction
         for transaction in data
-        if 'description' in transaction and pattern.search(transaction['description'])
+        if "description" in transaction and pattern.search(transaction["description"])
     ]
 
     return result
@@ -74,7 +74,7 @@ def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str
         raise ValueError("Список категорий не может быть пустым")
 
     # Собираем все описания операций в список
-    descriptions = [transaction.get('description', '') for transaction in data]
+    descriptions = [transaction.get("description", "") for transaction in data]
 
     # Создаем Counter для подсчета всех описаний
     counter = Counter(descriptions)
