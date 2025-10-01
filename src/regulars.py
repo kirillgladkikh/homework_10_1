@@ -35,39 +35,37 @@ def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
     return result
 
 
-# Пример использования с предоставленными данными
-if __name__ == "__main__":
-    test_transactions = [
-        {
-            "id": 441945886,
-            "state": "EXECUTED",
-            "date": "2019-08-26T10:50:58.294041",
-            "operationAmount": {
-                "amount": "31957.58",
-                "currency": {
-                    "name": "руб.",
-                    "code": "RUB"
-                }
-            },
-            "description": "Перевод организации",
-            "from": "Maestro 1596837868705199",
-            "to": "Счет 64686473678894779589"
-        },
-        {
-            "id": 41428829,
-            "state": "EXECUTED",
-            "date": "2019-07-03T18:35:29.512364",
-            "operationAmount": {
-                "amount": "8221.37",
-                "currency": {
-                    "name": "USD",
-                    "code": "USD"
-                }
-            },
-            "description": "Перевод организации",
-            "from": "MasterCard 7158300734726758",
-            "to": "Счет 35383033474447895560"
-        }
-    ]
+def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str, int]:
+    """
+    Функция подсчета количества операций по заданным категориям.
 
+    Параметры:
+    data (List[Dict]): список словарей с данными о банковских операциях
+    categories (List[str]): список категорий операций для подсчета
 
+    Возвращаемое значение:
+    Dict[str, int]: словарь, где ключи - категории, значения - количество операций
+
+    Пример использования:
+    >>> transactions = [
+    ...     {"description": "Перевод организации"},
+    ...     {"description": "Оплата в магазине"},
+    ...     {"description": "Перевод организации"}
+    ... ]
+    >>> categories = ["Перевод организации", "Оплата в магазине"]
+    >>> process_bank_operations(transactions, categories)
+    {'Перевод организации': 2, 'Оплата в магазине': 1}
+    """
+    # Инициализируем словарь с нулями для каждой категории
+    result = {category: 0 for category in categories}
+
+    # Проходим по всем операциям
+    for transaction in data:
+        # Получаем описание операции
+        description = transaction.get('description', '')
+
+        # Если описание есть в списке категорий, увеличиваем счетчик
+        if description in result:
+            result[description] += 1
+
+    return result

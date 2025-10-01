@@ -7,7 +7,7 @@ from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.utils import load_transactions
 from src.widget import get_date, mask_account_card
-from src.regulars import process_bank_search
+from src.regulars import process_bank_search, process_bank_operations
 
 # Домашнее задание 9.1
 print("\nДомашнее задание 9.1:")
@@ -90,10 +90,19 @@ print("\nДомашнее задание 13.2:")
 print("\nДомашнее задание 13.2:")
 print("\nДомашнее задание 13.2:")
 print("\nДомашнее задание 13.2:")
-
 transactions = read_transactions_from_csv("data/transactions.csv")
+
+print("\nФункция №1: process_bank_search")
 search_result = process_bank_search(transactions, "перевод")
 print(search_result)
+
+print("\nФункция №2: process_bank_operations")
+# Определяем категории для подсчета
+categories_list = ["Перевод организации", "Оплата в магазине"]
+
+# Получаем результат
+result = process_bank_operations(transactions, categories_list)
+print(result)
 
 
 # Домашнее задание 12.1
