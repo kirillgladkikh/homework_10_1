@@ -15,7 +15,7 @@ TEST_TRANSACTIONS = [
 ]
 
 
-def test_basic_search():
+def test_basic_search() -> None:
     """
     Тест базового поиска с точным совпадением
     """
@@ -24,7 +24,7 @@ def test_basic_search():
     assert result == expected
 
 
-def test_case_insensitive_search():
+def test_case_insensitive_search() -> None:
     """
     Тест поиска без учета регистра
     """
@@ -37,7 +37,7 @@ def test_case_insensitive_search():
     assert result == expected
 
 
-def test_partial_match():
+def test_partial_match() -> None:
     """
     Тест частичного совпадения
     """
@@ -46,7 +46,7 @@ def test_partial_match():
     assert result == expected
 
 
-def test_no_matches():
+def test_no_matches() -> None:
     """
     Тест отсутствия совпадений
     """
@@ -54,7 +54,7 @@ def test_no_matches():
     assert result == []
 
 
-def test_empty_search_string():
+def test_empty_search_string() -> None:
     """
     Тест с пустой строкой поиска
     """
@@ -62,7 +62,7 @@ def test_empty_search_string():
         process_bank_search(TEST_TRANSACTIONS, "")
 
 
-def test_invalid_data_type():
+def test_invalid_data_type() -> None:
     """
     Тест с некорректным типом данных
     """
@@ -73,21 +73,21 @@ def test_invalid_data_type():
         process_bank_search(TEST_TRANSACTIONS, 123)  # не строка
 
 
-def test_missing_description():
+def test_missing_description() -> None:
     transactions = [{"id": 1}, {"id": 2, "description": "Оплата в магазине"}, {"id": 3}]
     result = process_bank_search(transactions, "магазин")
     expected = [{"id": 2, "description": "Оплата в магазине"}]
     assert result == expected
 
 
-def test_special_characters():
+def test_special_characters() -> None:
     transactions = [{"id": 1, "description": "Оплата (магазин)"}, {"id": 2, "description": "Оплата магазина!"}]
     result = process_bank_search(transactions, "(магазин)")
     expected = [{"id": 1, "description": "Оплата (магазин)"}]
     assert result == expected
 
 
-def test_empty_transactions_list():
+def test_empty_transactions_list() -> None:
     """
     Тест с пустым списком транзакций
     """
@@ -95,7 +95,7 @@ def test_empty_transactions_list():
     assert result == []
 
 
-def test_multiple_matches():
+def test_multiple_matches() -> None:
     transactions = [
         {"id": 1, "description": "Оплата магазина"},
         {"id": 2, "description": "Магазин электроники"},

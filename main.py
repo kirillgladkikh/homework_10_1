@@ -1,6 +1,5 @@
 from data.data_generators import get_transactions
 from src.decorators import my_function
-
 # from src.external_api import get_exchange_rate
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.get_csv_xls import read_transactions_from_csv, read_transactions_from_excel
@@ -117,7 +116,7 @@ result = process_bank_operations(transactions, categories_list)
 print(result)
 
 
-def main():
+def main() -> None:
     """
     Функция реализующая основную логику проекта
     """
@@ -230,10 +229,6 @@ def main():
             if currency in (1, 2):
                 if currency == 1:
                     result_list = list(filter_by_currency(result_list, "RUB"))
-
-                # for transaction in result_list:
-                #     print(transaction)
-
                 break
             else:
                 print("Ошибка: число должно быть 1 или 2. Попробуйте еще раз.")
@@ -251,13 +246,10 @@ def main():
             # Проверяем, что число находится в допустимом диапазоне
             if search in (1, 2):
                 if search == 1:
-                    result_list = process_bank_search(result_list, "перевод")
 
-                # print(result_list)
-                #
-                # for transaction in result_list:
-                #     print(transaction)
-
+                    # Ввод строки поиска
+                    search_string = input("Введите строку для поиска: ")
+                    result_list = process_bank_search(result_list, search_string)
                 break
             else:
                 print("Ошибка: число должно быть 1 или 2. Попробуйте еще раз.")
@@ -271,7 +263,10 @@ def main():
 
         for transaction in result_list:
             print(f"\n{transaction['date'][:10]} {transaction['description']}")
-            print(f"{mask_account_card(transaction['from'])} -> {mask_account_card(transaction['to'])}")
+            if "from" in transaction:
+                print(f"{mask_account_card(transaction['from'])} -> {mask_account_card(transaction['to'])}")
+            else:
+                print(f"{mask_account_card(transaction['to'])}")
             print(
                 f"Сумма: {transaction['operationAmount']['amount']} {transaction['operationAmount']['currency']['name']}"
             )
