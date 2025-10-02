@@ -62,6 +62,7 @@ def test_file_not_found(monkeypatch):
     """
     Тест обработки ситуации, когда файл не найден.
     """
+
     def mock_open(*args, **kwargs):
         raise FileNotFoundError
 
