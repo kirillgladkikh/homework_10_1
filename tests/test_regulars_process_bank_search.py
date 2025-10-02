@@ -1,6 +1,7 @@
 import pytest
-from typing import List, Dict
-from collections import Counter
+
+# from typing import List, Dict
+# from collections import Counter
 from src.regulars import process_bank_search
 
 # Подготовим тестовые данные
@@ -10,7 +11,7 @@ TEST_TRANSACTIONS = [
     {"id": 3, "description": "Перевод другу"},
     {"id": 4, "description": "Снятие наличных"},
     {"id": 5, "description": "Оплата ЖКХ"},
-    {"id": 6, "description": "перевод организации"}  # с маленьким регистром
+    {"id": 6, "description": "перевод организации"},  # с маленьким регистром
 ]
 
 
@@ -19,10 +20,7 @@ def test_basic_search():
     Тест базового поиска с точным совпадением
     """
     result = process_bank_search(TEST_TRANSACTIONS, "Перевод организации")
-    expected = [
-        {"id": 1, "description": "Перевод организации"},
-        {"id": 6, "description": "перевод организации"}
-    ]
+    expected = [{"id": 1, "description": "Перевод организации"}, {"id": 6, "description": "перевод организации"}]
     assert result == expected
 
 
@@ -34,7 +32,7 @@ def test_case_insensitive_search():
     expected = [
         {"id": 1, "description": "Перевод организации"},
         {"id": 3, "description": "Перевод другу"},
-        {"id": 6, "description": "перевод организации"}
+        {"id": 6, "description": "перевод организации"},
     ]
     assert result == expected
 
@@ -44,10 +42,7 @@ def test_partial_match():
     Тест частичного совпадения
     """
     result = process_bank_search(TEST_TRANSACTIONS, "организации")
-    expected = [
-        {"id": 1, "description": "Перевод организации"},
-        {"id": 6, "description": "перевод организации"}
-    ]
+    expected = [{"id": 1, "description": "Перевод организации"}, {"id": 6, "description": "перевод организации"}]
     assert result == expected
 
 
@@ -79,21 +74,14 @@ def test_invalid_data_type():
 
 
 def test_missing_description():
-    transactions = [
-        {"id": 1},
-        {"id": 2, "description": "Оплата в магазине"},
-        {"id": 3}
-    ]
+    transactions = [{"id": 1}, {"id": 2, "description": "Оплата в магазине"}, {"id": 3}]
     result = process_bank_search(transactions, "магазин")
     expected = [{"id": 2, "description": "Оплата в магазине"}]
     assert result == expected
 
 
 def test_special_characters():
-    transactions = [
-        {"id": 1, "description": "Оплата (магазин)"},
-        {"id": 2, "description": "Оплата магазина!"}
-    ]
+    transactions = [{"id": 1, "description": "Оплата (магазин)"}, {"id": 2, "description": "Оплата магазина!"}]
     result = process_bank_search(transactions, "(магазин)")
     expected = [{"id": 1, "description": "Оплата (магазин)"}]
     assert result == expected
@@ -111,12 +99,12 @@ def test_multiple_matches():
     transactions = [
         {"id": 1, "description": "Оплата магазина"},
         {"id": 2, "description": "Магазин электроники"},
-        {"id": 3, "description": "Магазин одежды"}
+        {"id": 3, "description": "Магазин одежды"},
     ]
     result = process_bank_search(transactions, "магазин")
     expected = [
         {"id": 1, "description": "Оплата магазина"},
         {"id": 2, "description": "Магазин электроники"},
-        {"id": 3, "description": "Магазин одежды"}
+        {"id": 3, "description": "Магазин одежды"},
     ]
     assert result == expected

@@ -1,6 +1,7 @@
 from data.data_generators import get_transactions
 from src.decorators import my_function
-from src.external_api import get_exchange_rate
+
+# from src.external_api import get_exchange_rate
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.get_csv_xls import read_transactions_from_csv, read_transactions_from_excel
 from src.masks import get_mask_account, get_mask_card_number
