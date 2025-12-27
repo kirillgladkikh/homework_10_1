@@ -5,17 +5,22 @@ def get_mask_card_number(card_number: int) -> str:
     # Преобразуем номер карты в строку
     card_str = str(card_number)
 
-    # Разделяем первые 6 цифр
-    first_part = card_str[:6]
+    # Проверяем длину строки
+    if len(card_str) == 16:
 
-    # Формируем среднюю часть с масками
-    masked_part = "** **** "
+        # Разделяем первые 6 цифр
+        first_part = card_str[:6]
 
-    # Получаем последние 4 цифры
-    last_part = card_str[12:]
+        # Формируем среднюю часть с масками
+        masked_part = "** **** "
 
-    # Формируем итоговую маску с пробелами
-    return f"{first_part[:4]} {first_part[4:]}{masked_part}{last_part}"
+        # Получаем последние 4 цифры
+        last_part = card_str[12:]
+
+        # Формируем итоговую маску с пробелами
+        return f"{first_part[:4]} {first_part[4:]}{masked_part}{last_part}"
+    else:
+        return "номер карты не равен 16 символам"
 
 
 def get_mask_account(account_number: int) -> str:
@@ -25,5 +30,8 @@ def get_mask_account(account_number: int) -> str:
     # Преобразуем номер счета в строку
     account_str = str(account_number)
 
-    # Формируем итоговую маску
-    return f"**{account_str[-5:-1]}"
+    if len(account_str) == 20:
+        # Формируем итоговую маску
+        return f"**{account_str[-4:]}"
+    else:
+        return "номер счета не равен 20 символам"
